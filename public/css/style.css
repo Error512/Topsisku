@@ -38,6 +38,14 @@
       margin-left: 650px;
       margin-top: -95px;
   }
+
+  #addproject{
+    margin-top: 70px;
+    margin-left: 600px;
+    width: 10%;
+}
+
+
   #removeimg{
     margin-left: 700px;
     margin-top: 50px;
