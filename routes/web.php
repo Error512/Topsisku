@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sessioncontroller;
 use App\Http\Controllers\RegisterController;
@@ -20,9 +21,7 @@ use App\Http\Controllers\RegisterController;
 
 
 
-Route::get('/main', function () {
-    return view('components.project');
-});
+
 
 
 Route::get('/add', function () {
@@ -46,9 +45,16 @@ Route::get('/hitung', function () {
 
 
 
-Route::get('/',[SessionController::class, 'index']);
+Route::get('/',[SessionController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[SessionController::class, 'login']);
+Route::post('/logout',[SessionController::class, 'logout']);
 
 
-Route::get('/register',[RegisterController::class, 'index']);
+
+Route::get('/register',[RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register',[RegisterController::class, 'store']);
+
+
+
+
+Route::get('/main',[DashboardController::class, 'index'])->middleware('auth');

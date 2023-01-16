@@ -49,7 +49,7 @@
        
 		  <button type="submit">Register</button>
 	
-		  <span class="login">Already <a href="{{ url('login') }}">have account</a></span>
+		  <span class="login">Already <a href="{{ url('/') }}">have account</a></span>
 		</div>
 	
 	  </form>

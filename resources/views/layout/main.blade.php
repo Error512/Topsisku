@@ -21,13 +21,20 @@
            
             <div class="d-flex" id="nav">
                 <ul>
-                    <h3 class="mx-auto">Keivan</h3>
+                    <h3 class="mx-auto">
+                      {{auth()->user()->name}}
+                    </h3>
                 </ul>
                 <ul>
 
                     
 
-            <a href="{{ url('/') }}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a>
+            <!--<a href="{{ url('/') }}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a> -->
+
+            <form action="/logout" method="post">
+              @csrf
+              <button type="submit" class="btn btn-danger btn-lg active ">Logout</button>
+            </form>
                 </ul>
 
             </div>

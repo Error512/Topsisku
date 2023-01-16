@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session as FacadesSession;
-use Illuminate\Support\Fascades\Session;
+
 class SessionController extends Controller
 {
     function index(){
@@ -13,7 +13,7 @@ class SessionController extends Controller
     }
 
     function login(Request $request){
-        FacadesSession::flash('email', $request->email);
+
         $request->validate([
             'email'=>'required',
             'password'=>'required'
@@ -28,11 +28,23 @@ class SessionController extends Controller
         ];
 
         if(Auth::attempt($infologin)){
-            //return 'sukses';
-            return redirect('/main')->with('berhasil login');
+
+            $request->session()->regenerate();
+
+ 
+            return redirect()->intended('/main');
         }else{
-            return $infologin;
-            //return redirect('/')->withErrors('username dan pass salah');
+            return redirect('/')->with('error_account', 'Email dan Password yang dimasukan salah');
         }
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

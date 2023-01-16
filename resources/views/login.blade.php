@@ -14,10 +14,18 @@
 
 <body>
 
+<br>
 
 @if(session()->has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
 	{{session('success')}}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
+
+  @if(session()->has('error_account'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	{{session('error_account')}}
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
@@ -30,7 +38,7 @@
 	  
 		<div class="container">
 		  <label for="email"><b>Email</b></label>
-		  <input type="text" placeholder="Enter Username" value="{{Session::get('email')}}" name="email" id="email" class="rounded-top rounded-bottom" required>
+		  <input type="text" placeholder="Enter Email" value="{{Session::get('email')}}" name="email" id="email" class="rounded-top rounded-bottom" required>
 	  
 		  <label for="password"><b>Password</b></label>
 		  <input type="password" placeholder="Enter Password" name="password" id="password" class="rounded-top rounded-bottom" required>
