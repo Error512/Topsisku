@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sessioncontroller;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectPostController;
+use App\Models\post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,19 +47,22 @@ Route::get('/hitung', function () {
 
 
 
-
+//Route Login
 Route::get('/',[SessionController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[SessionController::class, 'login']);
 Route::post('/logout',[SessionController::class, 'logout']);
 
 
-
+//Route Logout
 Route::get('/register',[RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register',[RegisterController::class, 'store']);
 
+
+//Route 
+Route::get('/project',[ProjectController::class, 'index'])->middleware('auth');
+Route::get('/main',[ProjectController::class, 'show'])->middleware('auth');
 Route::post('/addproject',[ProjectController::class, 'create']);
 
+Route::resource('/projects', ProjectPostController::class)->middleware('auth');
 
 
-
-Route::get('/main',[DashboardController::class, 'index'])->middleware('auth');

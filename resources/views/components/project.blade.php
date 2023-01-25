@@ -2,8 +2,9 @@
 @section('content')
 <div id="positiontables">
     <div id="tittleproject">
+      
         <h1 >My Project</h1>
-
+        
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="addproject">
             Add Project
           </button>
@@ -14,10 +15,28 @@
             <img src="img/add.png" width="50" height="50" alt="" id="addimg">
         </a>
     -->
-
+    
     </div>
     
+    
+
     <div class="container" id="insideproject">
+      <!--ISI DARI CONTAINER-->
+
+      @foreach ($posts as $post)
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center;">{{$post->nama_project}}</h5>
+          <br>
+          <br>
+          <a href="/projects/{{$post->id}}" class="btn btn-primary ">Use This Project</a>
+        </div>
+      </div>
+          
+      @endforeach
+
+
+   
     
     </div>
 </div>
@@ -37,7 +56,7 @@
           <form action="/addproject" method="post">
             @csrf
 
-            <input name="id_user" value="{{auth()->user()->id}}" type="hidden">
+            <input name="user_id" value="{{auth()->user()->id}}" type="hidden">
 
 
 

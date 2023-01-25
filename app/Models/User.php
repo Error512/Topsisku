@@ -26,7 +26,7 @@ class User extends Authenticatable
         'nama_project'
         
     ];
-
+    //Untuk memisahkan bahwa insert id dimasukan berbeda dgn protected
     protected $guarded = ['id'];
 
 

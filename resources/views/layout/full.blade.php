@@ -19,19 +19,16 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
            
-            <div class="d-flex" id="nav">
-                <ul>
-                    <h3 class="mx-auto">{{auth()->user()->name}}</h3>
-                </ul>
-                <ul>
-
-                    
+            <div class="d-flex gap-5" id="nav">
+              
+              <h2>{{auth()->user()->name}}</h2>
+           
 
                   <form action="/logout" method="post">
                     @csrf
                     <button type="submit" class="btn btn-danger btn-lg active ">Logout</button>
                   </form>
-                </ul>
+      
 
             </div>
           </div>
@@ -47,7 +44,7 @@
                 <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('db') }}">Database</a>
                 <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('cosben') }}">Cos/Ben & Bobot</a>
                 <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('hitung') }}">Hitung</a>
-                <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('main') }}">Ganti Project</a>
+                <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('/projects') }}">Ganti Project</a>
 
             </div>
         </div>

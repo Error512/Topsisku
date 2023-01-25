@@ -7,7 +7,7 @@
         <br>
         <br>
         <!--Nanti diganti sesuai judul projectnya-->
-        <h1 class="mt-4"  style="text-align: center;">Judul project</h1>
+        <h1 class="mt-4"  style="text-align: center;">{{$posts->nama_project}}</h1>
         
         <div class="container-fluid">
             <a href="#" id="removeimg">

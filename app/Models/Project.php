@@ -17,7 +17,7 @@ class Project extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_user',
+        'user_id',
         'nama_project'
         
     ];

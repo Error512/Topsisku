@@ -17,14 +17,17 @@ class RegisterController extends Controller
 
     public function store(Request $request){
 
+        //mengecek input sesuai dengan format
         $validatedData = $request->validate([
             'name' => 'required|min:5|max:255',
             'email' => ['required','string','email:dns','unique:users'],
             'password' => 'required|min:5|max:255'
         ]);
 
+        //enkripsi password
         $validatedData['password']= bcrypt($validatedData['password']);
 
+        //insert ke db user
         user::create($validatedData);
 
 
