@@ -29,6 +29,13 @@
   }
 
 
+
+
+  .flex {
+    display: flex;
+    flex-direction: row;
+ }
+
   #tittleproject{
     margin-top: 70px;
     margin-left: 950px;

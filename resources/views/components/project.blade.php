@@ -22,17 +22,34 @@
 
     <div class="container" id="insideproject">
       <!--ISI DARI CONTAINER-->
-
+      <div class="row">
       @foreach ($posts as $post)
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;">{{$post->nama_project}}</h5>
+ 
+      
+        <div class="col-sm-4">
+          <div class="card" style="margin-top: 25px;">
+            <div class="card-body">
+              <h5 class="card-title" style="text-align: center;">{{$post->nama_project}}</h5>
           <br>
           <br>
-          <a href="/projects/{{$post->id}}" class="btn btn-primary ">Use This Project</a>
+
+          
+          <div class="flex">
+            <div>
+              <a href="/projects/{{$post->id}}" class="btn btn-primary col-lg-15">Use This Project</a> 
+            </div>
+            <div>
+              <form action="/projects/{{$post->id}}" method="post">
+                @method('delete')
+                @csrf
+                <button class="btn btn-danger col-lg-16" style="margin-left:50px">Delete</button>
+    
+              </form>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
-          
       @endforeach
 
 
@@ -53,7 +70,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/addproject" method="post">
+          <form action="/projects" method="post">
             @csrf
 
             <input name="user_id" value="{{auth()->user()->id}}" type="hidden">
@@ -61,7 +78,7 @@
 
 
             <label for="nama_project"><b>Name Project</b></label>
-		  <input type="text" placeholder="Enter Project Name" name="nama_project" class="form-control rounded-top rounded-bottom 
+		  <input type="text" placeholder="Enter Project Name" name="nama_project" required class="form-control rounded-top rounded-bottom
 		  @error('nama_project')is-invalid @enderror" value="{{old('nama_project')}}">
 		  @error('nama_project')
 		  <div class="invalid-feedback">

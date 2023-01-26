@@ -21,6 +21,7 @@
            
             <div class="d-flex gap-5" id="nav">
               
+              
               <h2>{{auth()->user()->name}}</h2>
            
 

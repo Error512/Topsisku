@@ -58,10 +58,7 @@ Route::get('/register',[RegisterController::class, 'index'])->middleware('guest'
 Route::post('/register',[RegisterController::class, 'store']);
 
 
-//Route 
-Route::get('/project',[ProjectController::class, 'index'])->middleware('auth');
-Route::get('/main',[ProjectController::class, 'show'])->middleware('auth');
-Route::post('/addproject',[ProjectController::class, 'create']);
+
 
 Route::resource('/projects', ProjectPostController::class)->middleware('auth');
 

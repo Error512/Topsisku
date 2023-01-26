@@ -48,7 +48,16 @@ class ProjectPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'user_id'=>'required|min:1|max:10',
+            'nama_project'=>'required|min:5|max:25'
+        ]);
+
+
+        project::create($validatedData);
+
+
+        return redirect('/projects');
     }
 
     /**
@@ -62,6 +71,7 @@ class ProjectPostController extends Controller
         return view('components.db',[
             'posts'=> $project
         ]);
+
     }
 
     /**
@@ -95,6 +105,7 @@ class ProjectPostController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        project::destroy($project->id);
+        return redirect('/projects');
     }
 }
