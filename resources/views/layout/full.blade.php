@@ -40,14 +40,43 @@
 
       <div class="d-flex" id="wrapper" >
         <!-- Sidebar-->
+
+        
+
         <div class="border-end " id="sidebar-wrapper" >
             <div class="list-group list-group-flush" >
-                <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('db') }}">Database</a>
-                <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('cosben') }}">Cos/Ben & Bobot</a>
-                <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('hitung') }}">Hitung</a>
-                <a class="list-group-item list-group-item-action list-group-item-primary p-4" href="{{ url('/projects') }}">Ganti Project</a>
 
+              <nav>
+                <li class="nav-item ">
+                  <form action="/projects/db/{{auth()->user()->last_project}}" >
+                    <input name="last_project" value="{{auth()->user()->last_project}}" type="hidden">
+                    <button class="nav-link {{Request::is('projects/db*')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4 ">Database</button>
+                  </form>
+                </li>
+                <li class="nav-item ">
+                  <a href="{{ url('cosben') }}" class="nav-link {{Request::is('cosben')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4">
+                    <span data-feather="home" class="align-text-bottom"></span>
+                    cosben
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a href="{{ url('hitung') }}" class="nav-link {{Request::is('hitung')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4">
+                    <span data-feather="home" class="align-text-bottom"></span>
+                    hitung
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a href="{{ url('/projects') }}" class="nav-link list-group-item list-group-item-action list-group-item-primary p-4">
+                    <span data-feather="home" class="align-text-bottom"></span>
+                    Ganti Project
+                  </a>
+                </li>
+              </nav>
+                
             </div>
+
+
+
         </div>
         <!-- Page content wrapper-->
         @yield('content')

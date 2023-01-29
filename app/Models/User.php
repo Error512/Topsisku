@@ -23,7 +23,8 @@ class User extends Authenticatable
         'password',
 
         'id_user',
-        'nama_project'
+        'nama_project',
+        'last_project'
         
     ];
     //Untuk memisahkan bahwa insert id dimasukan berbeda dgn protected

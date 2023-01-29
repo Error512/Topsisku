@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectPostController extends Controller
@@ -28,6 +29,7 @@ class ProjectPostController extends Controller
     public function create(Request $request)
     {
         //membuat project
+        
         $validatedData = $request->validate([
             'id_user'=>'required|min:1|max:10',
             'nama_project'=>'required|min:5|max:25'
@@ -68,9 +70,8 @@ class ProjectPostController extends Controller
      */
     public function show(Project $project)
     {
-        return view('components.db',[
-            'posts'=> $project
-        ]);
+        
+
 
     }
 
@@ -94,7 +95,7 @@ class ProjectPostController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        
     }
 
     /**

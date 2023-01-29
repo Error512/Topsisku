@@ -36,7 +36,16 @@
           
           <div class="flex">
             <div>
-              <a href="/projects/{{$post->id}}" class="btn btn-primary col-lg-15">Use This Project</a> 
+              <form action="/projects/db/{{$post->id}}" method="put">
+              <input name="last_project" value="{{$post->id}}" type="hidden">
+              <button class="btn btn-primary col-lg-15">Use This Project</button>
+              </form>
+
+
+
+
+
+
             </div>
             <div>
               <form action="/projects/{{$post->id}}" method="post">

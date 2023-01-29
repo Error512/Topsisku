@@ -7,20 +7,28 @@
         <br>
         <br>
         <!--Nanti diganti sesuai judul projectnya-->
-        <h1 class="mt-4"  style="text-align: center;">{{$posts->nama_project}}</h1>
-
+        @foreach ($posts as $object)
+        <h1 class="mt-4"  style="text-align: center;">{{$object->nama_project}}</h1>
         
-        <div class="container-fluid">
-            <a href="#" id="removeimg">
-                <img src="img/remove.png" width="70" height="70" alt="" id="removeimg" >
-            </a>
+        @endforeach
 
-            <a href="#" id="addimg">
-                <img src="img/upload.png" width="70" height="70" alt="" id="addimg" >
-            </a>
-            
+
+        <form action="/projects/db/{{auth()->user()->last_project}}" method="post" enctype="multipart/form-data">
+        @csrf
+
+        <div class="container-fluid">
+            <div class="mb-2">
+                <label for="csv" class="form-label">Upload CSV</label>
+                <input class="form-control" type="file" id="csv" name="csv" style="width:300px;">
+            </div>
+
+            <button>click</button>
 
         </div>
+
+        </form>
+        
+        
         
 
         
