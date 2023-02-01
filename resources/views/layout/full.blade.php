@@ -50,7 +50,7 @@
                 <li class="nav-item ">
                   <form action="/projects/db/{{auth()->user()->last_project}}" >
                     <input name="last_project" value="{{auth()->user()->last_project}}" type="hidden">
-                    <button class="nav-link {{Request::is('projects/db*')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4 ">Database</button>
+                    <button class="nav-link {{Request::is('projects/db*','projects/delete')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4 ">Database</button>
                   </form>
                 </li>
                 <li class="nav-item ">

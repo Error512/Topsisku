@@ -19,6 +19,7 @@ class DbPostController extends Controller
      */
     public function index(Request $request)
     {
+
         // Kalau dia belum pernah buka project sebelumnya, maka akan di assign
         if($request!=Null){
 
@@ -29,10 +30,22 @@ class DbPostController extends Controller
             User::where('id', auth()->user()->id)
             ->update($assign);
 
-            
-            return view('components.db',[
+  
+
+            if (Database::where('project_id', auth()->user()->last_project)->exists()) {
+                
+                return view('components.db',['have_db'=>'1',
+                    'posts' => Project::where('id', $request->last_project)->get()
+                ]);
+             }
+             
+             
+
+             return view('components.db',['have_db'=>'0',
                 'posts' => Project::where('id', $request->last_project)->get()
             ]);
+
+            
         };
         
         //kalau sudah pernah buka project sebelumnya, maka akan diliat dari project
@@ -61,7 +74,22 @@ class DbPostController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->file('csv')->store('databaseProject');
+
+        $validatedData = $request->validate([
+            'csv'=>'required|mimes:csv,txt'
+        ]);
+        $validatedData['csv']=$request->file('csv')->store('databaseProject');
+        $validatedData['user_id']=auth()->user()->id;
+        $validatedData['project_id']=auth()->user()->last_project;
+
+        Database::create($validatedData);
+
+        
+
+        return view('components.db',['have_db'=>'1',
+            'posts' => Project::where('id', auth()->user()->last_project)->get()
+       ]);
+
     }
 
     /**
@@ -104,8 +132,11 @@ class DbPostController extends Controller
      * @param  \App\Models\Database  $db
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Database $db)
+    public function destroy(Database $Database)
     {
-  
+        return 'aa';
+        //$data = Database::where('id', auth()->user()->last_project->get());
+        //Database::destroy($data->id);
+        //return 'aa';
     }
 }

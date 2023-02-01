@@ -6,6 +6,7 @@ use App\Http\Controllers\sessioncontroller;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProjectPostController;
 use App\Http\Controllers\DbPostController;
+use App\Http\Controllers\DeleteController;
 use App\Models\post;
 /*
 |--------------------------------------------------------------------------
@@ -57,15 +58,16 @@ Route::post('/register',[RegisterController::class, 'store']);
 
 
 
+
 //Resource Route
 Route::resource('/projects', ProjectPostController::class)->middleware('auth');
 
 Route::resource('/projects/db/{post:id}', DbPostController::class)->middleware('auth');
 
+Route::post('/projects/delete', [DeleteController::class, 'delete'])->middleware('auth');
 
 
 
 
 Route::resource('/projects/kriteria/{post:id}', KriteriaPostController::class)->middleware('auth');
-
 
