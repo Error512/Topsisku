@@ -37,7 +37,9 @@
           <div class="flex">
             <div>
               <form action="/projects/db/{{$post->id}}" method="put">
+                <input name="project_id" value="{{$post->id}}" type="hidden">
               <input name="last_project" value="{{$post->id}}" type="hidden">
+              
               <button class="btn btn-primary col-lg-15">Use This Project</button>
               </form>
 

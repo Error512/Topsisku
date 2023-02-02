@@ -19,10 +19,9 @@ class DbPostController extends Controller
      */
     public function index(Request $request)
     {
-
+        
         // Kalau dia belum pernah buka project sebelumnya, maka akan di assign
-        if($request!=Null){
-
+        
             $assign = $request->validate([
                 'last_project' => 'min:1|max:25'
             ]);
@@ -30,9 +29,10 @@ class DbPostController extends Controller
             User::where('id', auth()->user()->id)
             ->update($assign);
 
-  
-
-            if (Database::where('project_id', auth()->user()->last_project)->exists()) {
+            
+             
+            
+            if (Database::where('project_id', $request->project_id)->exists()) {
                 
                 return view('components.db',['have_db'=>'1',
                     'posts' => Project::where('id', $request->last_project)->get()
@@ -46,7 +46,7 @@ class DbPostController extends Controller
             ]);
 
             
-        };
+        
         
         //kalau sudah pernah buka project sebelumnya, maka akan diliat dari project
         //return view('components.db',[

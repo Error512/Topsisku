@@ -68,6 +68,5 @@ Route::post('/projects/delete', [DeleteController::class, 'delete'])->middleware
 
 
 
-
 Route::resource('/projects/kriteria/{post:id}', KriteriaPostController::class)->middleware('auth');
 
