@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Database;
+use App\Models\Kriteria;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
@@ -48,6 +49,7 @@ class DbPostController extends Controller
                 $csvValues = $bc->pluck('csv')->toArray();
             
                 $csvFile = storage_path("app/{$csvValues[0]}");
+                
 
                 //--------------------------PERMASALAHAN EXPLODE ; DAN SHOW KE HTML
                 $csv = File::get($csvFile);
@@ -99,12 +101,10 @@ class DbPostController extends Controller
      */
     public function store(Request $request)
     {
-        
+       //Untuk Tabel record database
         $validatedData = $request->validate([
             'csv'=>'required|mimes:csv,txt'
         ]);
-
-        
 
         $validatedData['csv']=$request->file('csv')->store('databaseProject');
         $validatedData['user_id']=auth()->user()->id;
@@ -114,19 +114,33 @@ class DbPostController extends Controller
         
         
 
-        $csv = File::get( $request->file('csv'));
-                $rows = array_map('str_getcsv', explode("\n", $csv));
-                $header = array_shift($rows);
-                $data = [];
+       //Untuk tabel record kriteria guna menampilkan di halaman kriteria
+       
+       if (Kriteria::where('project_id', auth()->user()->last_project)->exists()){
+            return redirect('/cosben');
+       }
+       
+            $file = Database::where('project_id', auth()->user()->last_project)->get(['csv']);
+            $csvValues = $file->pluck('csv')->toArray();
+            $csvFile = storage_path("app/{$csvValues[0]}");
 
-                
-                
-                      
+
+            //Buka csv dan hanya ambil header saja
+            $handle = fopen($csvFile,'r');
+            $row = fgetcsv($handle);
+            $data = $row;
+            fclose($handle);
             
-                
-    
-        return redirect('/cosben');
-
+            foreach($data as $kriteria){
+                $kriteriaData['project_id'] = auth()->user()->last_project;
+                $kriteriaData['nama_kriteria'] = $kriteria;
+                $kriteriaData['bobot'] = 1;
+                $kriteriaData['cos/ben'] = 'Cos';
+                Kriteria::create($kriteriaData);
+            }
+            
+        
+            return redirect('/cosben');
     }
 
     /**
@@ -171,9 +185,6 @@ class DbPostController extends Controller
      */
     public function destroy(Database $Database)
     {
-        return 'aa';
-        //$data = Database::where('id', auth()->user()->last_project->get());
-        //Database::destroy($data->id);
-        //return 'aa';
+       
     }
 }

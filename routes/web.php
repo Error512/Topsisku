@@ -4,8 +4,10 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sessioncontroller;
 use App\Http\Controllers\RegisterController;
+
 use App\Http\Controllers\ProjectPostController;
 use App\Http\Controllers\DbPostController;
+use App\Http\Controllers\KriteriaPostcontroller;
 use App\Http\Controllers\DeleteController;
 use App\Models\post;
 /*
@@ -35,9 +37,7 @@ Route::get('/add', function () {
 
 
 
-Route::get('/cosben', function () {
-    return view('components.cosben');
-});
+
 
 
 Route::get('/hitung', function () {
@@ -61,6 +61,8 @@ Route::post('/register',[RegisterController::class, 'store']);
 
 //Resource Route
 Route::resource('/projects', ProjectPostController::class)->middleware('auth');
+
+Route::resource('/cosben', KriteriaPostController::class)->middleware('auth');
 
 Route::resource('/projects/db/{post:id}', DbPostController::class)->middleware('auth');
 

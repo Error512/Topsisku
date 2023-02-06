@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\File;
+use App\Models\Database;
+use App\Models\Project;
+use App\Models\User;
 use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
@@ -14,7 +17,27 @@ class KriteriaPostController extends Controller
      */
     public function index()
     {
-        //
+        $assign = auth()->user()->last_project;
+        if (Database::where('project_id', $assign)->exists()) {
+            $file = Database::where('project_id', $assign)->get(['csv']);
+            $csvValues = $file->pluck('csv')->toArray();
+            $csvFile = storage_path("app/{$csvValues[0]}");
+
+
+            //Buka csv dan hanya ambil header saja
+            $handle = fopen($csvFile,'r');
+            $row = fgetcsv($handle);
+            $data = $row;
+            fclose($handle);
+
+            return view('components.cosben',['have_db'=>'1','data_header'=>$data]);
+        }
+
+        
+    
+        
+        
+        return view('components.cosben',['have_db'=>'0']);
     }
 
     /**

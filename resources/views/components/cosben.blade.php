@@ -18,6 +18,12 @@
 
     
     <br>
+    @if($have_db==1)
+    <form action="#">
+      @csrf
+      <button class="btn btn-primary " id="savecosben">Save</button>
+    </form>
+    @endif
     <div class="container-fluid " id="cosbenbox">
         <br>
         <div class="row">
@@ -35,9 +41,19 @@
           </div>
 
           <!--Isi -->
+          <!--Kalau tidak ada db-->
+          @if($have_db==0)
+          <div style="text-align: center;">
+            <h1 style="padding-top: 250px;padding-bottom:250px">No db</h1>
+          </div>  
+          @endif
 
+
+          <!--Kalau ada db-->
+          @if($have_db==1)
+          @foreach($data_header as $kriteria)
           <div class="column left" >
-            <h2 id="middle">Nama Kriteria</h2>
+            <h2 id="middle">{{$kriteria}}</h2>
           </div>
 
           <div class="column mid" >
@@ -61,10 +77,18 @@
               </select>
           </div>
 
+         
+          @endforeach
+            
+          
+          @endif
+          
     </div>
 
+    
+    
     </div>
-
+    
             
     </div>
     

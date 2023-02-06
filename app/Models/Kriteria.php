@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Kriteria extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'project_id',
+        'nama_kriteria',
+        'bobot',
+        'cos/ben',
+        
+    ];
+
+    protected $guarded = ['id'];
+    
 }
