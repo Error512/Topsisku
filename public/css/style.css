@@ -92,6 +92,22 @@
     margin-left: -200px;
   }
 
+  #dbtable{
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  #showdb{
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    
+  }
+
+  
+
   #insideproject{
     border: 3px solid #000000;
     position: absolute;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Database;
 use App\Models\Project;
 use App\Models\User;
-
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 
@@ -19,9 +19,13 @@ class DbPostController extends Controller
      */
     public function index(Request $request)
     {
+
+
+        
+        
         
         // Kalau dia belum pernah buka project sebelumnya, maka akan di assign
-        
+        //Assign lebih up todate dibanding auth user last project
             $assign = $request->validate([
                 'last_project' => 'min:1|max:25'
             ]);
@@ -30,11 +34,32 @@ class DbPostController extends Controller
             ->update($assign);
 
             
-             
+            
+            
+            
+            
+            
+
+            
             
             if (Database::where('project_id', $request->project_id)->exists()) {
+
+                $bc = Database::where('project_id', $assign['last_project'])->get(['csv']);
+                $csvValues = $bc->pluck('csv')->toArray();
+            
+                $csvFile = storage_path("app/{$csvValues[0]}");
+
+                //--------------------------PERMASALAHAN EXPLODE ; DAN SHOW KE HTML
+                $csv = File::get($csvFile);
+                $rows = array_map('str_getcsv', explode("\n", $csv));
+                $header = array_shift($rows);
+
+
                 
-                return view('components.db',['have_db'=>'1',
+                
+                
+                
+                return view('components.db',['data_header'=>$header,'data_value'=>$rows,'have_db'=>'1',
                     'posts' => Project::where('id', $request->last_project)->get()
                 ]);
              }
@@ -74,21 +99,33 @@ class DbPostController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         $validatedData = $request->validate([
             'csv'=>'required|mimes:csv,txt'
         ]);
+
+        
+
         $validatedData['csv']=$request->file('csv')->store('databaseProject');
         $validatedData['user_id']=auth()->user()->id;
         $validatedData['project_id']=auth()->user()->last_project;
 
         Database::create($validatedData);
-
+        
         
 
-        return view('components.db',['have_db'=>'1',
-            'posts' => Project::where('id', auth()->user()->last_project)->get()
-       ]);
+        $csv = File::get( $request->file('csv'));
+                $rows = array_map('str_getcsv', explode("\n", $csv));
+                $header = array_shift($rows);
+                $data = [];
+
+                
+                
+                      
+            
+                
+    
+        return redirect('/cosben');
 
     }
 
