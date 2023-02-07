@@ -106,6 +106,8 @@ class ProjectPostController extends Controller
      */
     public function destroy(Project $project)
     {
+
+
         project::destroy($project->id);
         return redirect('/projects');
     }

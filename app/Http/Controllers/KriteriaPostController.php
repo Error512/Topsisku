@@ -19,18 +19,26 @@ class KriteriaPostController extends Controller
     {
         $assign = auth()->user()->last_project;
         if (Database::where('project_id', $assign)->exists()) {
-            $file = Database::where('project_id', $assign)->get(['csv']);
-            $csvValues = $file->pluck('csv')->toArray();
-            $csvFile = storage_path("app/{$csvValues[0]}");
+            
+            
+            
+
+            $header = Kriteria::where('project_id', auth()->user()->last_project)
+                  ->pluck('nama_kriteria')
+                  ->toArray();
+            
+            $bobot = Kriteria::where('project_id', auth()->user()->last_project)
+                ->pluck('bobot')
+                ->toArray();
+
+            $cosben = Kriteria::where('project_id', auth()->user()->last_project)
+                ->pluck('cos_ben')
+                ->toArray();
 
 
-            //Buka csv dan hanya ambil header saja
-            $handle = fopen($csvFile,'r');
-            $row = fgetcsv($handle);
-            $data = $row;
-            fclose($handle);
-
-            return view('components.cosben',['have_db'=>'1','data_header'=>$data]);
+            
+            
+            return view('components.cosben',['have_db'=>'1','data_header'=>$header,'bobot'=>$bobot,'cosben'=>$cosben]);
         }
 
         
@@ -58,7 +66,27 @@ class KriteriaPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $find = Kriteria::where('project_id',auth()->user()->last_project)->get();
+        $count = Kriteria::where('project_id', auth()->user()->last_project)->count();
+
+        //mengubah nilai bobot yang dimasukan user
+        for($i=0; $i<$count; $i++){
+            $kriteria = $find[$i];
+            $kriteria->bobot = $request->input('bobotkriteria')[$i];
+            $kriteria->save();
+        }
+
+        //mengubah nilai cosben yang dimasukan user
+        for($i=0; $i<$count; $i++){
+            $kriteria = $find[$i];
+            $kriteria->cos_ben = $request->input('cosbenkriteria')[$i];
+            $kriteria->save();
+        }
+        
+
+
+
+        return redirect ('/cosben')->with('success', 'Update Sucessfull!');
     }
 
     /**

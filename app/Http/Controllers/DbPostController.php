@@ -135,7 +135,7 @@ class DbPostController extends Controller
                 $kriteriaData['project_id'] = auth()->user()->last_project;
                 $kriteriaData['nama_kriteria'] = $kriteria;
                 $kriteriaData['bobot'] = 1;
-                $kriteriaData['cos/ben'] = 'Cos';
+                $kriteriaData['cos_ben'] = 'Cos';
                 Kriteria::create($kriteriaData);
             }
             

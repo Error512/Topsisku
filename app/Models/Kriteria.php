@@ -13,7 +13,7 @@ class Kriteria extends Model
         'project_id',
         'nama_kriteria',
         'bobot',
-        'cos/ben',
+        'cos_ben',
         
     ];
 
