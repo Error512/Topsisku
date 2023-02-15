@@ -31,17 +31,22 @@
         <br>
         <div class="row">
             
-            <div class="column left" >
-              <h2 id="middle" style="padding-left: 40%">Kriteria</h2>
+            <div class="col" >
+              <h2 id="" style="padding-left: 40%">Kriteria</h2>
             </div>
-            <div class="column left" >
-                <h2 id="middle">Cos/Ben</h2>
+            <div class="col" >
+                <h2 id="">Cos/Ben</h2>
               </div>
-              <div class="column left" >
-                <h2 id="middle">Bobot</h2>
+              <div class="col" >
+                <h2 id="middle" >Bobot</h2>
               </div>
+              <div class="col" >
+                <h2 id="middle" >Pilih </h2>
+              </div>
+              
               <hr style="height:5px;border-width:10;color:rgb(0, 0, 0);">
             </div>
+            
 
           <!--Isi -->
           <!--Kalau tidak ada db-->
@@ -88,9 +93,28 @@
                 </select>
                 @endforeach
               </div>
+
+              
+              <div class="col" >
+                @foreach($cosben as $cosbens)
+                <select class="form-select" aria-label="Default select example" id="pilihkriteria" name="choosekriteria[]" >
+      
+                  <option value="1">Ya</option>
+                  <option value="0">Tidak</option>
+                </select>
+                @endforeach
+              </div>
+
             </div>
 
-            <button class="btn btn-primary " id="savecosben">Save</button>
+            
+
+            
+
+            
+            
+
+            <button class="btn btn-primary " id="savecosben">Hitung</button>
           </form>
           
          

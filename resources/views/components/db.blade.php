@@ -29,7 +29,7 @@
                 <input class="form-control" type="file" id="csv" name="csv" style="width:300px;" >
             </div>
             
-            <button style="width:300px;" class="btn btn-success">click</button>
+            <button style="width:300px;" class="btn btn-success">Upload</button>
 
         </div>
 
@@ -43,7 +43,7 @@
             <input name="project_id" value="{{$post}}" type="hidden">
             <button style="width:300px; margin-left: 62%;
 
-            margin-top: 160px;" class="btn btn-danger">Delete</button>
+            margin-top: 160px;" class="btn btn-danger">Update</button>
         </form>
         </div>
         @endif

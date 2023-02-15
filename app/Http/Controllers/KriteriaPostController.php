@@ -83,10 +83,65 @@ class KriteriaPostController extends Controller
             $kriteria->save();
         }
         
+        
+        //Melakukan perhitungan disini
+
+        if (Database::where('project_id', auth()->user()->last_project)->exists()) {
+
+            $bc = Database::where('project_id', auth()->user()->last_project)->get(['csv']);
+            $csvValues = $bc->pluck('csv')->toArray();
+        
+            $csvFile = storage_path("app/{$csvValues[0]}");
+            
+
+            //--------------------------PERMASALAHAN EXPLODE ; DAN SHOW KE HTML
+            $csv = File::get($csvFile);
+            $rows = array_map('str_getcsv', explode("\n", $csv));
+            $clean_header = array_shift($rows);
+            
+            
+
+           
 
 
+            //------------------Bagian Cleaning--------------
+            //Clean Row dan header, hanya mengambil kriteria dan nilai kriteria saja bukan nama alternatif
+            $clean_rows = array_map(function ($row) {
+                return array_slice($row, 1);
+            }, $rows);
 
-        return redirect ('/cosben')->with('success', 'Update Sucessfull!');
+            array_shift($clean_header);
+           
+            $total_kriteria = count($clean_rows[1]);
+            $total_rows = count($clean_rows)-1;
+            
+
+            //----------------------Bagian Hitung-----------------------------
+            //--------------------1. Buat Pembagi---------------------
+            for($i=0 ; $i<$total_kriteria; $i++){
+                $sementara = 0;
+                for($o=0 ; $o<$total_rows; $o++){
+                    
+                    $sementara = pow($clean_rows[$o][$i],2)+$sementara;
+                    $clean_rows[$o][$i] = 2;
+                }
+                
+                $pembagi[$i] = sqrt($sementara);
+                
+            }
+            return $pembagi;
+            //Menggunakan loop per foreach dan di save ke array tsb
+            
+            
+            
+            
+            
+         }
+
+        
+
+        //End
+        return redirect ('/hitung');
     }
 
     /**

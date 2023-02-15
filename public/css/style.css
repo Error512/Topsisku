@@ -64,17 +64,27 @@
 #namakriteria{
     text-align: center;
     margin-top: 10%;
+
 }
 
 #cosbenkriteria{
   text-align: center;
   margin-top: 10%;
+
   width: 100px;
+}
+
+#pilihkriteria{
+
+  margin-top: 10%;
+  width: 100px;
+
 }
 
 #bobotkriteria{
   text-align: center;
   margin-top: 10%;
+
   width: 100px;
 }
 

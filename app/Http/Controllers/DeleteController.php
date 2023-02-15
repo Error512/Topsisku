@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Database;
 use App\Models\Project;
+use App\Models\Kriteria;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -14,8 +15,8 @@ class DeleteController extends Controller
         $tampung= $request->project_id;
 
         $object = json_decode($tampung);
-
-  
+        
+        
         Database::where('project_id', $object->id)->delete();
 
 

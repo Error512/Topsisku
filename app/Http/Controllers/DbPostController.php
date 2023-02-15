@@ -56,7 +56,7 @@ class DbPostController extends Controller
                 $rows = array_map('str_getcsv', explode("\n", $csv));
                 $header = array_shift($rows);
 
-
+                
                 
                 
                 
@@ -130,7 +130,9 @@ class DbPostController extends Controller
             $row = fgetcsv($handle);
             $data = $row;
             fclose($handle);
-            
+            //menghapus header pertama sbg namanya
+            array_shift($data);
+
             foreach($data as $kriteria){
                 $kriteriaData['project_id'] = auth()->user()->last_project;
                 $kriteriaData['nama_kriteria'] = $kriteria;

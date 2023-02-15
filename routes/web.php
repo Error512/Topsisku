@@ -8,6 +8,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProjectPostController;
 use App\Http\Controllers\DbPostController;
 use App\Http\Controllers\KriteriaPostcontroller;
+use App\Http\Controllers\HitungPostcontroller;
 use App\Http\Controllers\DeleteController;
 use App\Models\post;
 /*
@@ -30,19 +31,15 @@ use App\Models\post;
 
 
 
-Route::get('/add', function () {
-    return view('components.addproject');
-});
 
 
 
 
+    
 
 
 
-Route::get('/hitung', function () {
-    return view('components.hitung');
-});
+
 
 
 
@@ -63,6 +60,8 @@ Route::post('/register',[RegisterController::class, 'store']);
 Route::resource('/projects', ProjectPostController::class)->middleware('auth');
 
 Route::resource('/cosben', KriteriaPostController::class)->middleware('auth');
+
+Route::resource('/hitung', HitungPostController::class)->middleware('auth');
 
 Route::resource('/projects/db/{post:id}', DbPostController::class)->middleware('auth');
 
