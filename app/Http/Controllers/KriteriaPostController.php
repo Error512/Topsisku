@@ -68,7 +68,7 @@ class KriteriaPostController extends Controller
     {
         $find = Kriteria::where('project_id',auth()->user()->last_project)->get();
         $count = Kriteria::where('project_id', auth()->user()->last_project)->count();
-
+        
         //mengubah nilai bobot yang dimasukan user
         for($i=0; $i<$count; $i++){
             $kriteria = $find[$i];
@@ -115,29 +115,91 @@ class KriteriaPostController extends Controller
             $total_kriteria = count($clean_rows[1]);
             $total_rows = count($clean_rows)-1;
             
-
+            
             //----------------------Bagian Hitung-----------------------------
+            $pembagi[0]=1;
+            $normalisasi_terbobot[0][0]=1;
+            $max[0]=1;
+            $min[0]=1;
+            $jarak_ideal_positif[0]=1;
+            $jarak_ideal_negatif[0]=1;
+            
             //--------------------1. Buat Pembagi---------------------
             for($i=0 ; $i<$total_kriteria; $i++){
                 $sementara = 0;
                 for($o=0 ; $o<$total_rows; $o++){
                     
                     $sementara = pow($clean_rows[$o][$i],2)+$sementara;
-                    $clean_rows[$o][$i] = 2;
+                    
                 }
                 
                 $pembagi[$i] = sqrt($sementara);
                 
             }
-            return $pembagi;
-            //Menggunakan loop per foreach dan di save ke array tsb
-            
-            
-            
-            
-            
-         }
 
+            //--------------------2. Kalikan pembagi dengan nilai alternatif awal (Normalisasi)---------------------
+            for($i=0 ; $i<$total_kriteria; $i++){
+                for($o=0 ; $o<$total_rows; $o++){
+                    $normalisasi[$o][$i] = $clean_rows[$o][$i] / $pembagi[$i];
+                }
+            }
+
+            
+
+            //--------------------3. Kalikan pembagi dikali dengan bobot (Normalisasi terbobot)---------------------
+            for($i=0 ; $i<$total_kriteria; $i++){
+
+                for($o=0 ; $o<$total_rows; $o++){
+                    
+                    $normalisasi_terbobot[$o][$i]= $normalisasi[$o][$i]*$request->bobotkriteria[$i];
+                    
+                }
+            }
+
+            //--------------------4.Menemukan nilai min max---------------------
+            //Menggunakan loop per foreach dan di save ke array tsb
+            for($i=0 ; $i<$total_kriteria; $i++){
+                //Mengecek apakah user memasukan Cos atau benefit
+                if($request->cosbenkriteria[$i] == "Cos"){
+                    //Nilai terbesar dijadikan maximum dan nilai terkecil dijadikan minimum
+                    $max[$i] = max(array_column($normalisasi_terbobot, $i));
+                    $min[$i] = min(array_column($normalisasi_terbobot, $i));
+                    
+
+                }
+                
+                else if($request->cosbenkriteria[$i] == "Ben"){
+                    //Nilai terkecil dijadikan maxmimum dan nilai terkecil dijadikan minimum
+                    $max[$i] = min(array_column($normalisasi_terbobot, $i));
+                    $min[$i] = max(array_column($normalisasi_terbobot, $i));
+                }
+                
+            }
+            
+            //--------------------5.Menentukan Jarak ideal positif negatif---------------------
+            // Jarak Ideal Positif
+            for($o=0 ; $o<$total_rows; $o++){
+                $tampung = 0;
+                for($i=0 ; $i<$total_kriteria; $i++){
+                    $tampung = $tampung + (pow(($max[$i]-$normalisasi_terbobot[$o][$i]),2));
+                }
+                $jarak_ideal_positif[$o] = sqrt($tampung);
+                
+            }
+
+            // Jarak Ideal PNegatif
+            for($o=0 ; $o<$total_rows; $o++){
+                $tampung = 0;
+                for($i=0 ; $i<$total_kriteria; $i++){
+                    $tampung = $tampung + (pow(($normalisasi_terbobot[$o][$i]-$min[$i]),2));
+                }
+                $jarak_ideal_negatif[$o] = sqrt($tampung);
+                
+            }
+            
+            return $jarak_ideal_negatif;
+         }
+         
         
 
         //End
