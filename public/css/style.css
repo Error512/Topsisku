@@ -110,12 +110,25 @@
   #dbbox{
     border: 3px solid #000000;
     position: absolute;
-    left: 55%;
-    top: 52%;
     height: 600px;
-    margin-top: -200px;
     width: 1200px;
-    margin-left: -600px;
+   
+  }
+
+  #boxrank{
+
+    position: absolute;
+    left: 40%;
+    top: 12%;
+
+  }
+
+  #rangking{
+    border: 3px solid #000000;
+    text-align: center;
+    padding-top: 5%;
+    width: 150px;
+    padding-bottom: 5%;
   }
 
   #menudb{
@@ -139,7 +152,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 30vh;
+ 
     
   }
 

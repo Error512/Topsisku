@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Hitung;
+use App\Models\Rangking;
+
 use Illuminate\Http\Request;
 
 class HitungPostController extends Controller
@@ -13,15 +15,17 @@ class HitungPostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+      
+
+        if (Rangking::where('project_id', auth()->user()->last_project)->exists()) {
+            $alternatif = Rangking::where('project_id', auth()->user()->last_project)->get();
+            return view('components.hitung',['rangking'=>$alternatif])->with('ranked','ada');
+         }
+         return view('components.hitung')->with('no_rank','ga ada');
+
         
-
-
-
-
-        //--------------------------
-        return view('components.hitung');
     }
 
     /**

@@ -24,7 +24,8 @@
       <!--ISI DARI CONTAINER-->
       <div class="row">
       @foreach ($posts as $post)
- 
+        
+      
       
         <div class="col-sm-4">
           <div class="card" style="margin-top: 25px;">

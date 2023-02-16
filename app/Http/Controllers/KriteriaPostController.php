@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Database;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\Rangking;
 use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
@@ -123,7 +124,8 @@ class KriteriaPostController extends Controller
             $min[0]=1;
             $jarak_ideal_positif[0]=1;
             $jarak_ideal_negatif[0]=1;
-            
+            $preferensi[0] =1;
+            $ranking[0][0]=1;
             //--------------------1. Buat Pembagi---------------------
             for($i=0 ; $i<$total_kriteria; $i++){
                 $sementara = 0;
@@ -187,7 +189,7 @@ class KriteriaPostController extends Controller
                 
             }
 
-            // Jarak Ideal PNegatif
+            // Jarak Ideal Negatif
             for($o=0 ; $o<$total_rows; $o++){
                 $tampung = 0;
                 for($i=0 ; $i<$total_kriteria; $i++){
@@ -197,13 +199,61 @@ class KriteriaPostController extends Controller
                 
             }
             
-            return $jarak_ideal_negatif;
+            
+            //--------------------5.Menentukan preferensi/perangkingan---------------------
+            for($o=0 ; $o<$total_rows; $o++){
+                $preferensi[$o] =  $jarak_ideal_negatif[$o]/($jarak_ideal_positif[$o] + $jarak_ideal_negatif[$o]);
+                
+            }
+            
+
+            //--------------------6. Membuat dalam bentuk ranking---------------------
+            
+            
+            //Satukan ke variabel $ranking
+            for($o=0; $o<$total_rows ; $o++){
+                $ranking[$o][0]=$rows[$o][0];
+                $ranking[$o][1]=$preferensi[$o];
+            }
+
+
+            // variabel tampung mengambil haya nilai array multidimensional column ke 2 di value array pertama
+            $urut = array_column($ranking, 1);
+  
+            // Mengurutkan dari yang terbesar ke terkecil bedasarkan column ke 2
+            array_multisort($urut, SORT_DESC, $ranking);
+            
+
+            //Sebelum memasukan ke db, akan di cek dulu apakah sudah ada perhitungan sebelumnya. Kalau ada maka akan di delete
+            if(Rangking::where('project_id', auth()->user()->last_project)->exists()){
+                Rangking::where('project_id', auth()->user()->last_project)->delete();
+            }
+
+
+
+            //Memasukan rangking terurut ke db
+            for($o=0; $o<$total_rows ; $o++){
+                $insertranking['project_id'] = auth()->user()->last_project;
+                $insertranking['alternatif'] = $ranking[$o][0];
+                $insertranking['preferensi'] = $ranking[$o][1];
+                $insertranking['urutan'] = $o+1;
+                Rangking::create($insertranking);
+            }
+
+            
+
+
+            
+
+            return redirect ('/hitung');
+            
+            
          }
          
         
 
-        //End
-        return redirect ('/hitung');
+        
+        
     }
 
     /**

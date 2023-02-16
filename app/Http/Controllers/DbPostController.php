@@ -57,13 +57,12 @@ class DbPostController extends Controller
                 $header = array_shift($rows);
 
                 
-                
-                
+                $total_alternatif = count($rows)-1;
                 
                 
                 return view('components.db',['data_header'=>$header,'data_value'=>$rows,'have_db'=>'1',
                     'posts' => Project::where('id', $request->last_project)->get()
-                ]);
+                ])->with('total',$total_alternatif);
              }
              
              
