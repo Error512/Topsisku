@@ -14,6 +14,7 @@ class Kriteria extends Model
         'nama_kriteria',
         'bobot',
         'cos_ben',
+        'pilih'
         
     ];
 

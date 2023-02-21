@@ -8,7 +8,7 @@ use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 
 class DbPostController extends Controller
 {
@@ -132,11 +132,14 @@ class DbPostController extends Controller
             //menghapus header pertama sbg namanya
             array_shift($data);
 
+            
+
             foreach($data as $kriteria){
                 $kriteriaData['project_id'] = auth()->user()->last_project;
                 $kriteriaData['nama_kriteria'] = $kriteria;
                 $kriteriaData['bobot'] = 1;
                 $kriteriaData['cos_ben'] = 'Cos';
+                $kriteriaData['pilih'] = 'Ya';
                 Kriteria::create($kriteriaData);
             }
             

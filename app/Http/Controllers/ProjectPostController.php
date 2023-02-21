@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Database;
 use App\Models\Kriteria;
+use App\Models\Rangking;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -107,7 +110,8 @@ class ProjectPostController extends Controller
      */
     public function destroy(Project $project)
     {
-
+        Database::where('project_id', $project->id)->delete();
+        Rangking::where('project_id', $project->id)->delete();
         Kriteria::where('project_id', $project->id)->delete();
         project::destroy($project->id);
         return redirect('/projects');

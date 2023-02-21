@@ -63,7 +63,7 @@
                 <li class="nav-item ">
                   <a href="{{ url('hitung') }}" class="nav-link {{Request::is('hitung')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4">
                     <span data-feather="home" class="align-text-bottom"></span>
-                    hitung
+                    Ranking
                   </a>
                 </li>
                 <li class="nav-item ">

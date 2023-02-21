@@ -37,8 +37,8 @@
  }
 
   #tittleproject{
-    margin-top: 70px;
-    margin-left: 950px;
+    text-align: center;
+    
   }
 
   #addimg{
@@ -159,14 +159,12 @@
   
 
   #insideproject{
+    margin-top: 5%;
     border: 3px solid #000000;
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    position: flex;
     height: 600px;
-    margin-top: -200px;
     width: 1200px;
-    margin-left: -600px;
+
   }
 
   #regis{
@@ -259,6 +257,7 @@
 
 
   #cosbenbox{
+    
     border: 3px solid #000000;
     position: absolute;
     left: 55%;

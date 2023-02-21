@@ -1,6 +1,7 @@
 @extends('layout.main')
 @section('content')
-<div id="positiontables">
+<div class="container">
+  <div id="positiontables">
     <div id="tittleproject">
       
         <h1 >My Project</h1>
@@ -8,15 +9,8 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="addproject">
             Add Project
           </button>
-
-
-          <!-- GAMBAR ga jadi
-        <a href="#" >
-            <img src="img/add.png" width="50" height="50" alt="" id="addimg">
-        </a>
-    -->
     
-    </div>
+    
     
     
 
@@ -114,4 +108,6 @@
   </div>
     
 </div>
+</div>
+
 @endsection

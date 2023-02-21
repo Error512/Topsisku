@@ -1,27 +1,30 @@
 @extends('layout.full')
 @section('content')
 
-
+<div class="container" style="margin-left: 20%">
+  
+        @if(session()->has('no_criteria'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+        {{session('no_criteria')}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  
+        </div>
+  
+        @endif
+  
+</div>
 
 <div class="container-fluid" >
   
     <br>
     <br>
-    @if(session()->has('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-	  {{session('success')}}
-	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-    <br>
+    
+   
+
     
     <!--Nanti diganti sesuai judul projectnya-->
     
-    <div class="container-fluid">
-
    
-
-    </div>
     
 
     
@@ -85,22 +88,22 @@
                 @foreach($bobot as $bobot)
                 <select class="form-select" aria-label="Default select example" id="bobotkriteria" name="bobotkriteria[]" >
                   <option hidden selected="selected">{{$bobot}}</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
+                  <option value=1>1</option>
+                  <option value=2>2</option>
+                  <option value=3>3</option>
+                  <option value=4>4</option>
+                  <option value=5>5</option>
                 </select>
                 @endforeach
               </div>
 
               
               <div class="col" >
-                @foreach($cosben as $cosbens)
+                @foreach($pilih as $pilihs)
                 <select class="form-select" aria-label="Default select example" id="pilihkriteria" name="choosekriteria[]" >
-      
-                  <option value="1">Ya</option>
-                  <option value="0">Tidak</option>
+                  <option hidden selected="selected">{{$pilihs}}</option>
+                  <option value="Ya">Ya</option>
+                  <option value="Tidak">Tidak</option>
                 </select>
                 @endforeach
               </div>

@@ -9,7 +9,7 @@
             <br>
             <!--Nanti diganti sesuai judul projectnya-->
             @foreach ($posts as $post)
-            <h1 class="mt-4"  style="text-align: center;">{{$post->nama_project}}</h1>
+            <h1 class="mt-4"  style="text-align: center;margin-bottom:3%">{{$post->nama_project}}</h1>
             
             @endforeach
     
@@ -42,7 +42,7 @@
             <form action="/projects/delete" method="post">
                 @csrf
                 <input name="project_id" value="{{$post}}" type="hidden">
-                <button style="width:300px; margin-left: 62%;" class="btn btn-danger">Update</button>
+                <button style="width:100px; margin-left: 27%;" class="btn btn-success">Update</button>
             </form>
             </div>
             @endif
@@ -95,7 +95,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < $total; $i++)
+                            @for ($i = 0; $i < $total-1; $i++)
                                 <tr id="dbtable">
                                     @foreach ($data_value[$i] as $key => $value)
                                         <td style="text-align: center; padding: 4px;" id="dbtable">{{ $value }}</td>

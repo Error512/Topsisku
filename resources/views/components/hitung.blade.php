@@ -3,6 +3,7 @@
     <div class="container" id="boxrank">
         <table>
             @if(!empty($ranked))
+            <h1 style="padding-bottom:3%; margin-left:6%">Hasil Perhitungan</h1>
             <th id='rangking'>
                 Alternatif
             </th>

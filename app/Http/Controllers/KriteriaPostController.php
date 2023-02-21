@@ -36,10 +36,14 @@ class KriteriaPostController extends Controller
                 ->pluck('cos_ben')
                 ->toArray();
 
+            $pilih = Kriteria::where('project_id', auth()->user()->last_project)
+                ->pluck('pilih')
+                ->toArray();   
+
 
             
             
-            return view('components.cosben',['have_db'=>'1','data_header'=>$header,'bobot'=>$bobot,'cosben'=>$cosben]);
+            return view('components.cosben',['have_db'=>'1','data_header'=>$header,'bobot'=>$bobot,'cosben'=>$cosben,'pilih'=>$pilih]);
         }
 
         
@@ -83,6 +87,13 @@ class KriteriaPostController extends Controller
             $kriteria->cos_ben = $request->input('cosbenkriteria')[$i];
             $kriteria->save();
         }
+
+        //mengubah nilai pilih yang dimasukan user
+        for($i=0; $i<$count; $i++){
+            $kriteria = $find[$i];
+            $kriteria->pilih = $request->input('choosekriteria')[$i];
+            $kriteria->save();
+        }
         
         
         //Melakukan perhitungan disini
@@ -115,6 +126,29 @@ class KriteriaPostController extends Controller
            
             $total_kriteria = count($clean_rows[1]);
             $total_rows = count($clean_rows)-1;
+            
+            //return $total_kriteria;
+            //return $request->choosekriteria;
+            //---------------------Men Assign nilai 0 untuk kriteria yang tidak dipilih---------------
+            $bobot_dipakai[0]=0;
+            $not_choosen = 0;
+            for($i=0;$i<$total_kriteria;$i++){
+                if($request->choosekriteria[$i]==0){
+                    $bobot_dipakai[$i]="0";
+                    $not_choosen +=1;
+                    
+                }
+                else{
+                    $bobot_dipakai[$i]=$request->bobotkriteria[$i];
+                }
+                
+            }
+            
+            if(count($bobot_dipakai)==$not_choosen){
+                return redirect('/cosben')->with('no_criteria','Choose at least 1 Criteria');
+            }
+            
+            
             
             
             //----------------------Bagian Hitung-----------------------------
@@ -153,11 +187,11 @@ class KriteriaPostController extends Controller
 
                 for($o=0 ; $o<$total_rows; $o++){
                     
-                    $normalisasi_terbobot[$o][$i]= $normalisasi[$o][$i]*$request->bobotkriteria[$i];
+                    $normalisasi_terbobot[$o][$i]= $normalisasi[$o][$i]*$bobot_dipakai[$i];
                     
                 }
             }
-
+            
             //--------------------4.Menemukan nilai min max---------------------
             //Menggunakan loop per foreach dan di save ke array tsb
             for($i=0 ; $i<$total_kriteria; $i++){
@@ -177,6 +211,7 @@ class KriteriaPostController extends Controller
                 }
                 
             }
+            
             
             //--------------------5.Menentukan Jarak ideal positif negatif---------------------
             // Jarak Ideal Positif
