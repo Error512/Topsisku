@@ -18,7 +18,8 @@ class Project extends Model
      */
     protected $fillable = [
         'user_id',
-        'nama_project'
+        'nama_project',
+        'deskripsi_project'
         
     ];
 

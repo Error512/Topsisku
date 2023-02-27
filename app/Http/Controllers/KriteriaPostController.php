@@ -125,7 +125,14 @@ class KriteriaPostController extends Controller
             array_shift($clean_header);
            
             $total_kriteria = count($clean_rows[1]);
+
+
+            
+            
+            
             $total_rows = count($clean_rows)-1;
+         
+            
             
             //return $total_kriteria;
             //return $request->choosekriteria;
@@ -133,7 +140,7 @@ class KriteriaPostController extends Controller
             $bobot_dipakai[0]=0;
             $not_choosen = 0;
             for($i=0;$i<$total_kriteria;$i++){
-                if($request->choosekriteria[$i]==0){
+                if($request->choosekriteria[$i]=="Tidak"){
                     $bobot_dipakai[$i]="0";
                     $not_choosen +=1;
                     
@@ -181,7 +188,7 @@ class KriteriaPostController extends Controller
             }
 
             
-
+            
             //--------------------3. Kalikan pembagi dikali dengan bobot (Normalisasi terbobot)---------------------
             for($i=0 ; $i<$total_kriteria; $i++){
 
@@ -191,7 +198,7 @@ class KriteriaPostController extends Controller
                     
                 }
             }
-            
+           
             //--------------------4.Menemukan nilai min max---------------------
             //Menggunakan loop per foreach dan di save ke array tsb
             for($i=0 ; $i<$total_kriteria; $i++){
@@ -233,6 +240,7 @@ class KriteriaPostController extends Controller
                 $jarak_ideal_negatif[$o] = sqrt($tampung);
                 
             }
+            
             
             
             //--------------------5.Menentukan preferensi/perangkingan---------------------

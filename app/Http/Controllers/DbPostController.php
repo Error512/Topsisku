@@ -57,7 +57,7 @@ class DbPostController extends Controller
                 $header = array_shift($rows);
 
                 
-                $total_alternatif = count($rows)-1;
+                $total_alternatif = count($rows)+1;
                 
                 
                 return view('components.db',['data_header'=>$header,'data_value'=>$rows,'have_db'=>'1',
@@ -105,10 +105,37 @@ class DbPostController extends Controller
             'csv'=>'required|mimes:csv,txt'
         ]);
 
+        //------Mengecek apakah data alternatif berisi number atau tidak
+
+        $csv = File::get($request->csv);
+        $rows = array_map('str_getcsv', explode("\n", $csv));
+        $clean_header = array_shift($rows);
+        $clean_rows = array_map(function ($rows) {
+            return array_slice($rows, 1);
+        }, $rows);
+        $total_rows = count($clean_rows)-1;
+        $total_kriteria = count($clean_rows[1]);
+       
+        for($i=0;$i<$total_kriteria;$i++){
+            for($o=0;$o<$total_rows;$o++){
+                if(ctype_alpha($clean_rows[$o][$i])){
+                    return redirect('/cosben')->with('error', 'Alternative data must Number!');
+                }
+                if($clean_rows[$o][$i]==NULL){
+                    return redirect('/cosben')->with('error', 'Alternative data must not NULL!');
+                }
+                
+            }
+        }
+        
+
+        //------Menyimpan data alternatif
+
         $validatedData['csv']=$request->file('csv')->store('databaseProject');
         $validatedData['user_id']=auth()->user()->id;
         $validatedData['project_id']=auth()->user()->last_project;
 
+        
         Database::create($validatedData);
         
         
@@ -116,6 +143,7 @@ class DbPostController extends Controller
        //Untuk tabel record kriteria guna menampilkan di halaman kriteria
        
        if (Kriteria::where('project_id', auth()->user()->last_project)->exists()){
+        
             return redirect('/cosben');
        }
        
@@ -134,6 +162,7 @@ class DbPostController extends Controller
 
             
 
+
             foreach($data as $kriteria){
                 $kriteriaData['project_id'] = auth()->user()->last_project;
                 $kriteriaData['nama_kriteria'] = $kriteria;
@@ -143,7 +172,7 @@ class DbPostController extends Controller
                 Kriteria::create($kriteriaData);
             }
             
-        
+            
             return redirect('/cosben');
     }
 

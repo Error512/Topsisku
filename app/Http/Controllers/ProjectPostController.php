@@ -34,9 +34,11 @@ class ProjectPostController extends Controller
     {
         //membuat project
         
+        
         $validatedData = $request->validate([
             'id_user'=>'required|min:1|max:10',
-            'nama_project'=>'required|min:5|max:25'
+            'nama_project'=>'required|min:5|max:25',
+            'deskripsi_project'=>'required|min:5|max:25'
         ]);
 
 
@@ -54,9 +56,11 @@ class ProjectPostController extends Controller
      */
     public function store(Request $request)
     {
+        
         $validatedData = $request->validate([
             'user_id'=>'required|min:1|max:10',
-            'nama_project'=>'required|min:5|max:25'
+            'nama_project'=>'required|min:5|max:25',
+            'deskripsi_project'=>'required|min:5|max:40'
         ]);
 
 

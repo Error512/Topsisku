@@ -51,18 +51,19 @@
                   <form action="/projects/db/{{auth()->user()->last_project}}" >
                     <input name="last_project" value="{{auth()->user()->last_project}}" type="hidden">
                     <input name="project_id" value="{{auth()->user()->last_project}}" type="hidden">
-                    <button class="nav-link {{Request::is('projects/db*','projects/delete')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4 ">Database</button>
+                    
+                    <button class="nav-link {{Request::is('projects/db*','projects/delete')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4 "><span style="font-size:25px;font-weight: 600;">&#9312;</span> Database</button>
                   </form>
                 </li>
                 <li class="nav-item ">
                   <a href="{{ url('cosben') }}" class="nav-link {{Request::is('cosben')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4">
-                    <span data-feather="home" class="align-text-bottom"></span>
-                    cosben
+                    <span data-feather="home" class="align-text-bottom" style="font-size:25px;font-weight: 600;">&#9313;</span>
+                    Pengaturan Parameter
                   </a>
                 </li>
                 <li class="nav-item ">
                   <a href="{{ url('hitung') }}" class="nav-link {{Request::is('hitung')? 'disabled':''}} list-group-item list-group-item-action list-group-item-primary p-4">
-                    <span data-feather="home" class="align-text-bottom"></span>
+                    <span data-feather="home" class="align-text-bottom" style="font-size:25px;font-weight: 600;">&#9314;</span>
                     Ranking
                   </a>
                 </li>

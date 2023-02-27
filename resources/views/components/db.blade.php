@@ -95,7 +95,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < $total-1; $i++)
+                            @for ($i = 0; $i < $total-2; $i++)
                                 <tr id="dbtable">
                                     @foreach ($data_value[$i] as $key => $value)
                                         <td style="text-align: center; padding: 4px;" id="dbtable">{{ $value }}</td>

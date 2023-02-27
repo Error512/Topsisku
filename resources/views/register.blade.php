@@ -8,7 +8,16 @@
 
 </head>
 
+<nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
+	<div class="container px-5">
+		<a class="navbar-brand fw-bold" href="/" style="margin-left: -30%">Topsisku</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		</button>
+	</div>
+</nav>
+
 <body>
+	
 	<form id="regis" action="/register" method="post">
 		@csrf
 		<div class="imgcontainer">
@@ -49,7 +58,7 @@
        
 		  <button type="submit">Register</button>
 	
-		  <span class="login">Already <a href="{{ url('/') }}">have account</a></span>
+		  <span class="login">Already <a href="{{ url('/logins') }}">have account</a></span>
 		</div>
 	
 	  </form>

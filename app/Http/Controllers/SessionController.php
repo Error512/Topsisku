@@ -41,7 +41,7 @@ class SessionController extends Controller
 
             return redirect()->intended('/projects');
         }else{
-            return redirect('/')->with('error_account', 'Email dan Password yang dimasukan salah');
+            return redirect('/logins')->with('error_account', 'Email dan Password yang dimasukan salah');
         }
     }
 
@@ -53,6 +53,6 @@ class SessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/logins');
     }
 }

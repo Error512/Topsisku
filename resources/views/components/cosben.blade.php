@@ -1,6 +1,10 @@
 @extends('layout.full')
 @section('content')
 
+
+
+
+
 <div class="container" style="margin-left: 20%">
   
         @if(session()->has('no_criteria'))
@@ -10,6 +14,13 @@
   
         </div>
   
+        @endif
+
+        @if(session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align:center"> 
+	        {{session('error')}}
+	
+        </div>
         @endif
   
 </div>

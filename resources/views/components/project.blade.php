@@ -24,7 +24,9 @@
         <div class="col-sm-4">
           <div class="card" style="margin-top: 25px;">
             <div class="card-body">
-              <h5 class="card-title" style="text-align: center;">{{$post->nama_project}}</h5>
+              <h4 class="card-title" style="text-align: center;">{{$post->nama_project}}</h4>
+              <br>
+              <h5 class="card-title" style="text-align: left">{{$post->deskripsi_project}}</h5>
           <br>
           <br>
 
@@ -72,7 +74,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Project</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel" style="margin-left:40%">Add Project</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -83,10 +85,20 @@
 
 
 
-            <label for="nama_project"><b>Name Project</b></label>
-		  <input type="text" placeholder="Enter Project Name" name="nama_project" required class="form-control rounded-top rounded-bottom
-		  @error('nama_project')is-invalid @enderror" value="{{old('nama_project')}}">
+            
+          
+		  <input type="text" style="margin-top: 10%;margin-top: 5%" placeholder="Enter Project Name" name="nama_project" required class="form-control rounded-top rounded-bottom
+      @error('nama_project')is-invalid @enderror" value="{{old('nama_project')}}">
 		  @error('nama_project')
+		  <div class="invalid-feedback">
+			{{$message}}
+		  </div>
+		  @enderror
+
+
+      <input type="text" placeholder="Enter Description" name="deskripsi_project" required class="form-control rounded-top rounded-bottom
+      @error('deskripsi_project')is-invalid @enderror" value="{{old('deskripsi_project')}}">
+		  @error('deskripsi_project')
 		  <div class="invalid-feedback">
 			{{$message}}
 		  </div>

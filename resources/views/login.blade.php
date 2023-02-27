@@ -10,25 +10,35 @@
 
 
 
-
-
 <body>
+
+	
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
+		<div class="container px-5">
+			<a class="navbar-brand fw-bold" href="/" style="margin-left: -30%">Topsisku</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			</button>
+		</div>
+	</nav>
+
 
 <br>
 
 @if(session()->has('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-	{{session('success')}}
-	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="alert alert-success alert-dismissible fade show" role="alert" style="text-align:center">
+	<h2 style="text-align: center">{{session('success')}}</h2>
+	
   </div>
   @endif
 
   @if(session()->has('error_account'))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align:center"> 
 	{{session('error_account')}}
-	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	
   </div>
   @endif
+
+  
 
 	<form id="login" action="/login" method="post">
 		@csrf

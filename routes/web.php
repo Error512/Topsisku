@@ -25,26 +25,8 @@ use App\Models\post;
 
 
 
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
 //Route Login
-Route::get('/',[SessionController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/logins',[SessionController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[SessionController::class, 'login']);
 Route::post('/logout',[SessionController::class, 'logout']);
 
@@ -54,8 +36,7 @@ Route::get('/register',[RegisterController::class, 'index'])->middleware('guest'
 Route::post('/register',[RegisterController::class, 'store']);
 
 
-
-
+Route::view('/', 'landing');
 //Resource Route
 Route::resource('/projects', ProjectPostController::class)->middleware('auth');
 
